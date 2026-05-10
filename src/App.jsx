@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Events from './components/Events'
@@ -16,6 +17,7 @@ export default function App() {
       <IdeaCard />
       <Attendance />
       <Footer />
+      <Analytics />
     </>
   )
 }
