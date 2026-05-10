@@ -5,7 +5,6 @@ const navLinks = [
   { label: 'About', href: '#about-detail' },
   { label: 'Events', href: '#events' },
   { label: 'Board', href: '#board' },
-  { label: 'Resources', href: '#attendance' },
 ]
 
 export default function Navbar() {

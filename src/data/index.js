@@ -41,7 +41,7 @@ export const boardMembers = [
     initials: 'AP',
     name: 'Angel Phillips',
     role: 'RESEARCH CHAIR',
-    year: 'MS1 · Class of 2029',
+    year: 'MS2 · Class of 2028',
     color: 'navy',
     photo: '/photos/Angel.jpg',
   },
