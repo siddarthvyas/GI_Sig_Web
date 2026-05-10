@@ -1,5 +1,6 @@
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import About from './components/About'
 import Events from './components/Events'
 import Leadership from './components/Leadership'
 import IdeaCard from './components/IdeaCard'
@@ -11,6 +12,7 @@ export default function App() {
     <>
       <Navbar />
       <Hero />
+      <About />
       <Events />
       <Leadership />
       <IdeaCard />

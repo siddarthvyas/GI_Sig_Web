@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { IDEA_FORM_URL } from '../data'
 
 const navLinks = [
-  { label: 'About', href: '#about' },
+  { label: 'About', href: '#about-detail' },
   { label: 'Events', href: '#events' },
   { label: 'Board', href: '#board' },
   { label: 'Resources', href: '#attendance' },
