@@ -9,7 +9,7 @@ export default function Footer() {
             <span className="text-white font-bold text-xs">Gi</span>
           </div>
           <span className="text-white/50 text-sm">
-            Gi SIG · UTRGV School of Medicine · Rio Grande Valley
+            GI SIG · UTRGV School of Medicine · Rio Grande Valley
           </span>
         </div>
         <a
