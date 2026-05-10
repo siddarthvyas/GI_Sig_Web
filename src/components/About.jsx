@@ -7,7 +7,7 @@ const pillars = [
       </svg>
     ),
     title: 'Education',
-    body: 'Expert guest lectures, workshops, and Q&A panels that expose students to the breadth of GI practice — from general care to advanced interventions.',
+    body: 'We host guest lectures, workshops, and Q&A panels covering the breadth of GI practice, from general care to advanced interventional procedures.',
   },
   {
     icon: (
@@ -17,7 +17,7 @@ const pillars = [
       </svg>
     ),
     title: 'Career Development',
-    body: 'Networking opportunities with GI specialists, research guidance, and resources to help you build a competitive application for residency.',
+    body: 'We connect students with GI specialists, provide research guidance, and share resources relevant to residency preparation and career planning.',
   },
   {
     icon: (
@@ -27,7 +27,7 @@ const pillars = [
       </svg>
     ),
     title: 'Community & Outreach',
-    body: 'Volunteer events throughout the year, partnering with other clubs and local health organizations to host events on nutrition, IBD management, and liver health.',
+    body: 'We organize volunteer events and collaborate with other clubs and local health organizations on topics like nutrition, IBD management, and liver health.',
   },
 ]
 
@@ -38,9 +38,9 @@ export default function About() {
         <div className="section-label">About</div>
         <h2 className="text-3xl font-extrabold text-navy mb-3">What we do</h2>
         <p className="text-navy/55 text-base leading-relaxed max-w-2xl mb-12">
-          We are a student organization dedicated to helping medical students explore gastroenterology
-          and hepatology through mentorship, education, research, and service — whether you're already
-          interested in GI or simply curious about the field.
+          We are a student organization at UTRGV School of Medicine focused on gastroenterology and
+          hepatology. Our goal is to help students learn about the field through education, research,
+          mentorship, and service.
         </p>
 
         <div className="grid md:grid-cols-3 gap-6">

@@ -13,7 +13,7 @@ export default function Hero() {
             <img
               src="/photos/logo.png"
               alt="Gi SIG Logo"
-              className="w-28 h-28 rounded-full object-cover shadow-lg"
+              className="w-44 h-44 rounded-full object-cover shadow-lg"
             />
           </div>
 
@@ -22,11 +22,10 @@ export default function Hero() {
           </div>
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-5">
             Gastroenterology{' '}
-            <span className="text-brand">Interest Group</span>
+            <span className="text-brand">Student Interest Group</span>
           </h1>
           <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-md">
-            Your hub for GI education, clinical exposure, and community at UTRGV SOM. Built by
-            students, for students in the Rio Grande Valley.
+            Exploring the growing role of GI in patient care.
           </p>
           <div className="flex flex-wrap gap-3">
             <a href="#events" className="btn-primary">Upcoming Events</a>
@@ -55,8 +54,8 @@ export default function Hero() {
               </svg>
             }
             label="LEADERSHIP"
-            title="Class of 2029 Board"
-            sub="MS1 · Academic Year 2025–26"
+            title="2025–2026 Board"
+            sub="UTRGV School of Medicine"
           />
           <InfoCard
             icon={
