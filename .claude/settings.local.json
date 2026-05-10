@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:claude.ai)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "PowerShell(New-Item -ItemType Directory -Path \"C:\\\\Users\\\\Sidda\\\\OneDrive\\\\Desktop\\\\ClaudeProjects\\\\GI Club\\\\public\\\\photos\" -Force)"
+    ]
+  }
+}
