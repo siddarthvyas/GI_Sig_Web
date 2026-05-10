@@ -13,7 +13,7 @@ export default function Hero() {
             <img
               src="/photos/logo.png"
               alt="Gi SIG Logo"
-              className="w-44 h-44 rounded-full object-cover shadow-lg"
+              className="w-64 h-64 rounded-full object-cover shadow-lg"
             />
           </div>
 

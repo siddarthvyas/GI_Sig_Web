@@ -38,8 +38,8 @@ export const boardMembers = [
     photo: '/photos/Haider.jpg',
   },
   {
-    initials: 'A',
-    name: 'Angel',          // ← add last name here
+    initials: 'AP',
+    name: 'Angel Phillips',
     role: 'RESEARCH CHAIR',
     year: 'MS1 · Class of 2029',
     color: 'navy',
