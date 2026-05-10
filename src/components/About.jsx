@@ -38,8 +38,8 @@ export default function About() {
         <div className="section-label">About</div>
         <h2 className="text-3xl font-extrabold text-navy mb-3">What we do</h2>
         <p className="text-navy/55 text-base leading-relaxed max-w-2xl mb-12">
-          We are a student organization at UTRGV School of Medicine focused on gastroenterology and
-          hepatology. Our goal is to help students learn about the field through education, research,
+          We are a student organization at UTRGV School of Medicine focused on gastroenterology.
+          Our goal is to help students learn about the field through education, research,
           mentorship, and service.
         </p>
 

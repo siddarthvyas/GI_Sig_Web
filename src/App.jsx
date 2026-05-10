@@ -2,9 +2,10 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Events from './components/Events'
+import Speakers from './components/Speakers'
 import Leadership from './components/Leadership'
 import IdeaCard from './components/IdeaCard'
-import Attendance from './components/Attendance'
+import EmailSignup from './components/EmailSignup'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -14,9 +15,10 @@ export default function App() {
       <Hero />
       <About />
       <Events />
+      <Speakers />
       <Leadership />
       <IdeaCard />
-      <Attendance />
+      <EmailSignup />
       <Footer />
     </>
   )

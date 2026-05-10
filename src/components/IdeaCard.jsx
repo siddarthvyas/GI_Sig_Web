@@ -10,7 +10,7 @@ export default function IdeaCard() {
             <div>
               <h3 className="text-white font-bold text-lg mb-1">Have an event idea?</h3>
               <p className="text-white/60 text-sm leading-relaxed max-w-md">
-                Suggest speakers, case nights, clinical tours, or social events. We review every
+                Suggest speakers, social events, or anything else you want to see. We review every
                 submission and vote on the best ones each semester.
               </p>
             </div>
