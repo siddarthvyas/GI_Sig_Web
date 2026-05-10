@@ -11,7 +11,7 @@ export const boardMembers = [
     role: 'PRESIDENT',
     year: 'MS1 · Class of 2029',
     color: 'navy',
-    photo: '/photos/siddarth.jpg',
+    photo: '/photos/Siddarth.jpg',
   },
   {
     initials: 'AN',
@@ -19,7 +19,7 @@ export const boardMembers = [
     role: 'VICE PRESIDENT',
     year: 'MS1 · Class of 2029',
     color: 'navy',
-    photo: '/photos/avery.jpg',
+    photo: '/photos/Avery.jpg',
   },
   {
     initials: 'VO',
@@ -27,7 +27,7 @@ export const boardMembers = [
     role: 'SECRETARY',
     year: 'MS2 · Class of 2028',
     color: 'orange',
-    photo: '/photos/veronica.jpg',
+    photo: '/photos/Veronica.jpg',
   },
   {
     initials: 'HA',
@@ -35,7 +35,7 @@ export const boardMembers = [
     role: 'TREASURER',
     year: 'MS1 · Class of 2029',
     color: 'orange',
-    photo: '/photos/haider.jpg',
+    photo: '/photos/Haider.jpg',
   },
   {
     initials: 'A',
@@ -43,7 +43,7 @@ export const boardMembers = [
     role: 'RESEARCH CHAIR',
     year: 'MS1 · Class of 2029',
     color: 'navy',
-    photo: '/photos/angel.jpg',
+    photo: '/photos/Angel.jpg',
   },
 ]
 

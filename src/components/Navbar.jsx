@@ -16,7 +16,7 @@ export default function Navbar() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="flex items-center gap-3 flex-shrink-0">
-          <img src="/logo.png" alt="Gi SIG Logo" className="w-10 h-10 rounded-full object-cover" />
+          <img src="/photos/logo.png" alt="Gi SIG Logo" className="w-10 h-10 rounded-full object-cover" />
           <div className="leading-tight">
             <div className="text-white font-semibold text-sm">Gi SIG</div>
             <div className="text-white/50 text-xs">UTRGV · Rio Grande Valley</div>

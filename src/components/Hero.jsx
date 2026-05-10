@@ -11,7 +11,7 @@ export default function Hero() {
           {/* Logo */}
           <div className="mb-7">
             <img
-              src="/logo.png"
+              src="/photos/logo.png"
               alt="Gi SIG Logo"
               className="w-28 h-28 rounded-full object-cover shadow-lg"
             />
