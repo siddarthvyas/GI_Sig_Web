@@ -8,7 +8,7 @@ export default function Leadership() {
         <div className="flex items-center justify-between mb-10">
           <div>
             <div className="section-label">Leadership</div>
-            <h2 className="text-3xl font-extrabold text-navy">2025–2026 Board</h2>
+            <h2 className="text-3xl font-extrabold text-navy">2026–2027 Board</h2>
           </div>
           <a
             href={`mailto:${CONTACT_EMAIL}`}

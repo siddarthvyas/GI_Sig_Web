@@ -54,7 +54,7 @@ export default function Hero() {
               </svg>
             }
             label="LEADERSHIP"
-            title="2025–2026 Board"
+            title="2026–2027 Board"
             sub="UTRGV School of Medicine"
           />
           <InfoCard
