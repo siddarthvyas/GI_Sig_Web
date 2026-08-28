@@ -12,9 +12,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <img src="/photos/logo.png" alt="GI SIG" className="w-7 h-7 object-contain" />
-          <span className="text-white/50 text-sm">
-            GI SIG · UTRGV School of Medicine · Rio Grande Valley
-          </span>
+          <span className="text-white/50 text-sm">GI SIG</span>
         </div>
         <div className="flex items-center gap-5">
           <a

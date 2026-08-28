@@ -5,7 +5,9 @@
       "Bash(npm install *)",
       "Bash(npm run *)",
       "PowerShell(New-Item -ItemType Directory -Path \"C:\\\\Users\\\\Sidda\\\\OneDrive\\\\Desktop\\\\ClaudeProjects\\\\GI Club\\\\public\\\\photos\" -Force)",
-      "WebFetch(domain:giutrgv.org)"
+      "WebFetch(domain:giutrgv.org)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }

@@ -18,7 +18,7 @@ export default function Navbar() {
           <img src="/photos/logo.png" alt="GI SIG Logo" className="w-10 h-10 object-contain" />
           <div className="leading-tight">
             <div className="text-white font-semibold text-sm">GI SIG</div>
-            <div className="text-white/50 text-xs">UTRGV · Rio Grande Valley</div>
+            <div className="text-white/50 text-xs">Rio Grande Valley</div>
           </div>
         </a>
 
