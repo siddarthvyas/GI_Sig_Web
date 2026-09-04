@@ -46,6 +46,12 @@ export const events = [
     detailIcon: 'note',
     color: 'orange',
     coHosts: ['im', 'gi', 'ho', 'cv'],
+    // Pre-filled check-in link: the "Which event are you checking in for?"
+    // answer is baked into the URL, so scanning the QR tags the response
+    // with this event and nobody has to pick it from a list.
+    checkInUrl:
+      'https://docs.google.com/forms/d/e/1FAIpQLSdU-AaCRxKJkV110LR2cI1cPcDmsaVGv_8HeTFeEFYzYw6cNg/viewform?usp=pp_url&entry.76917494=Oct+14+%E2%80%94+1st+Joint+General+Meeting',
+    flyer: '/photos/flyer-2026-10-14.png',
     blurb:
       'Kicking off a new year of collaboration. Meet the boards of all four groups, hear what each has planned for the year, and explore your future specialty over lunch.',
     startUTC: '20261014T170000Z',
@@ -62,6 +68,39 @@ export function nextEvent(today = new Date()) {
 // Per-event check-in link, falling back to the shared form.
 export function checkInUrlFor(event) {
   return event?.checkInUrl || CHECK_IN_URL
+}
+
+// RFC 5545 escaping: commas, semicolons and backslashes are field separators.
+function icsEscape(text) {
+  return String(text).replace(/([\\,;])/g, '\\$1').replace(/\n/g, '\\n')
+}
+
+// A .ics file covers Apple Calendar and Outlook, which cannot open a Google
+// Calendar template link. Built from the same fields as calendarUrlFor.
+export function icsFor(event) {
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//GI SIG UTRGV//Events//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    `UID:${event.id}@giutrgv.org`,
+    `DTSTAMP:${stamp}`,
+    `DTSTART:${event.startUTC}`,
+    `DTEND:${event.endUTC}`,
+    `SUMMARY:${icsEscape(`${event.title} — GI SIG`)}`,
+    `LOCATION:${icsEscape(`${event.location}, UTRGV School of Medicine`)}`,
+    `DESCRIPTION:${icsEscape(event.blurb || '')}`,
+    'BEGIN:VALARM',
+    'TRIGGER:-PT30M',
+    'ACTION:DISPLAY',
+    `DESCRIPTION:${icsEscape(event.title)}`,
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ].join('\r\n')
 }
 
 // Google Calendar "add event" link built from the event's own fields.

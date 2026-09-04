@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import { events, sigs, calendarUrlFor } from '../data'
+import { events, sigs } from '../data'
 import CheckInModal from './CheckInModal'
 import SigChips from './SigChips'
+import AddToCalendar from './AddToCalendar'
+import Flyer from './Flyer'
+import FlyerModal from './FlyerModal'
 
 const ClockIcon = () => (
   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -18,13 +21,6 @@ const QrIcon = () => (
   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
       d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 18h.01M18 15h.01M21 18h.01M18 21h.01M21 21h.01M15 21h.01M19 15h.01" />
-  </svg>
-)
-
-const CalendarIcon = () => (
-  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
   </svg>
 )
 
@@ -49,7 +45,7 @@ const detailIcons = {
   ),
 }
 
-function EventCard({ event, onCheckIn, featured = false }) {
+function EventCard({ event, onCheckIn, onViewFlyer, featured = false }) {
   const isOrange = event.color === 'orange'
   const headerBg = isOrange ? 'bg-brand' : 'bg-navy'
 
@@ -85,36 +81,47 @@ function EventCard({ event, onCheckIn, featured = false }) {
         </div>
       )}
 
-      <div className={featured ? 'md:flex md:items-stretch md:gap-6 md:px-2' : ''}>
-      <div className={`px-5 py-4 flex flex-col gap-2.5 flex-1 ${featured ? 'md:w-1/2' : ''}`}>
-        <DetailRow icon={<ClockIcon />} text={event.time} />
-        <DetailRow icon={<PinIcon />} text={event.location} />
-        {event.detail && <DetailRow icon={detailIcons[event.detailIcon]} text={event.detail} />}
-        {event.blurb && (
-          <p className="text-navy/55 text-sm leading-relaxed mt-1">{event.blurb}</p>
-        )}
-      </div>
+      <div className={featured ? 'md:flex md:gap-6 md:px-1' : ''}>
+        {/* Details, then the actions directly under them, so the column keeps
+            pace with the portrait flyer beside it instead of ending short. */}
+        <div className={`px-5 py-4 flex flex-col gap-2.5 flex-1 ${featured ? 'md:w-3/5' : ''}`}>
+          <DetailRow icon={<ClockIcon />} text={event.time} />
+          <DetailRow icon={<PinIcon />} text={event.location} />
+          {event.detail && <DetailRow icon={detailIcons[event.detailIcon]} text={event.detail} />}
+          {event.blurb && (
+            <p className="text-navy/55 text-sm leading-relaxed mt-1">{event.blurb}</p>
+          )}
 
-      <div className={`px-5 pb-5 flex flex-col gap-2 ${featured ? 'md:w-1/2 md:justify-end md:pb-6' : ''}`}>
-        <button
-          onClick={() => onCheckIn(event)}
-          className="w-full flex items-center justify-center gap-2 border border-navy/20 hover:border-navy/40 text-navy font-semibold text-sm py-2.5 rounded-lg transition-colors"
-        >
-          <QrIcon />
-          Check In
-        </button>
-        {event.startUTC && event.endUTC && (
-          <a
-            href={calendarUrlFor(event)}
-            target="_blank"
-            rel="noreferrer"
-            className="w-full flex items-center justify-center gap-2 text-navy/60 hover:text-brand font-semibold text-sm py-1.5 rounded-lg transition-colors"
-          >
-            <CalendarIcon />
-            Add to calendar
-          </a>
+          <div className={`flex flex-col gap-3 mt-auto pt-4 ${featured ? '' : 'hidden'}`}>
+            <button
+              onClick={() => onCheckIn(event)}
+              className="w-full flex items-center justify-center gap-2 border border-navy/20 hover:border-navy/40 text-navy font-semibold text-sm py-2.5 rounded-lg transition-colors"
+            >
+              <QrIcon />
+              Check In
+            </button>
+            <AddToCalendar event={event} />
+          </div>
+        </div>
+
+        {featured && (
+          <div className="px-5 pb-5 md:pb-4 md:w-2/5 md:pt-4 flex flex-col justify-start">
+            <Flyer event={event} onClick={() => onViewFlyer(event)} />
+          </div>
         )}
-      </div>
+
+        {!featured && (
+          <div className="px-5 pb-5 flex flex-col gap-3">
+            <button
+              onClick={() => onCheckIn(event)}
+              className="w-full flex items-center justify-center gap-2 border border-navy/20 hover:border-navy/40 text-navy font-semibold text-sm py-2.5 rounded-lg transition-colors"
+            >
+              <QrIcon />
+              Check In
+            </button>
+            <AddToCalendar event={event} />
+          </div>
+        )}
       </div>
     </div>
   )
@@ -149,6 +156,7 @@ function ComingSoonCard() {
 
 export default function Events() {
   const [activeEvent, setActiveEvent] = useState(null)
+  const [flyerEvent, setFlyerEvent] = useState(null)
 
   return (
     <section id="events" className="bg-cream py-20">
@@ -173,6 +181,7 @@ export default function Events() {
                 key={ev.id}
                 event={ev}
                 onCheckIn={setActiveEvent}
+                onViewFlyer={setFlyerEvent}
                 featured={events.length === 1}
               />
             ))
@@ -184,6 +193,9 @@ export default function Events() {
 
       {activeEvent && (
         <CheckInModal event={activeEvent} onClose={() => setActiveEvent(null)} />
+      )}
+      {flyerEvent && (
+        <FlyerModal event={flyerEvent} onClose={() => setFlyerEvent(null)} />
       )}
     </section>
   )

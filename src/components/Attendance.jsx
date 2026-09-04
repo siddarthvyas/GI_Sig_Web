@@ -1,12 +1,6 @@
 import { QRCodeSVG } from 'qrcode.react'
-import { nextEvent, checkInUrlFor, sigs } from '../data'
+import { nextEvent, checkInUrlFor } from '../data'
 import SigChips from './SigChips'
-
-const tags = [
-  { icon: '📱', label: 'Scan at the door' },
-  { icon: '📊', label: 'Auto-logged to Google Sheet' },
-  { icon: '📄', label: 'Exportable for school records' },
-]
 
 export default function Attendance() {
   const event = nextEvent()
@@ -21,62 +15,47 @@ export default function Attendance() {
         <div className="bg-white rounded-2xl p-8 shadow-sm border border-navy/5 flex flex-col md:flex-row gap-8">
           <div className="flex-shrink-0">
             <div className="inline-block p-3 border-2 border-navy/10 rounded-xl">
-              <QRCodeSVG value={url} size={180} fgColor="#0F2D4A" bgColor="#ffffff" level="M" />
+              <QRCodeSVG value={url} size={220} fgColor="#0F2D4A" bgColor="#ffffff" level="M" />
             </div>
           </div>
 
           <div className="flex-1 min-w-0">
-          {event ? (
-            <>
-              <h3 className="text-navy font-bold text-lg mb-1">
-                Checking in for {event.title}
-              </h3>
-              <div className="text-navy/50 text-sm mb-4">
-                {event.weekday}, {event.dateLong || `${event.month} ${event.day}`} · {event.time}{' '}
-                · {event.location}
-              </div>
-
-              {event.coHosts?.length > 0 && (
-                <div className="flex flex-col gap-2 mb-5">
-                  <SigChips keys={event.coHosts} size="sm" />
-                  <p className="text-navy/55 text-sm leading-relaxed">
-                    This is a joint event, so one check-in covers every group. The response
-                    sheet is shared with the{' '}
-                    {event.coHosts.map((k) => sigs[k]?.abbr).filter(Boolean).join(', ')} boards
-                    so each can pull its own attendance for SOM reporting.
-                  </p>
+            {event ? (
+              <>
+                <h3 className="text-navy font-bold text-lg mb-1">
+                  Checking in for {event.title}
+                </h3>
+                <div className="text-navy/50 text-sm mb-4">
+                  {event.weekday}, {event.dateLong || `${event.month} ${event.day}`} · {event.time}{' '}
+                  · {event.location}
                 </div>
-              )}
-            </>
-          ) : (
-            <h3 className="text-navy font-bold text-lg mb-2">QR code check-in at every event</h3>
-          )}
 
-          <p className="text-navy/55 text-sm leading-relaxed mb-6">
-            Scan the code with your phone camera, or tap the button below if you are already
-            reading this on your phone. Records are saved to a Google Sheet for SOM reporting.
-          </p>
+                {event.coHosts?.length > 0 && (
+                  <div className="flex flex-col gap-2 mb-5">
+                    <SigChips keys={event.coHosts} size="sm" />
+                    <p className="text-navy/55 text-sm leading-relaxed">
+                      One check-in covers all {event.coHosts.length} groups.
+                    </p>
+                  </div>
+                )}
+              </>
+            ) : (
+              <h3 className="text-navy font-bold text-lg mb-2">QR code check-in at every event</h3>
+            )}
 
-          <a
-            href={url}
-            target="_blank"
-            rel="noreferrer"
-            className="btn-primary inline-block text-sm mb-6"
-          >
-            Open the check-in form
-          </a>
+            <p className="text-navy/55 text-sm leading-relaxed mb-6">
+              Scan the code with your phone camera, or tap the button below if you are already
+              reading this on your phone. It takes a few seconds.
+            </p>
 
-          <div className="flex flex-wrap gap-2">
-            {tags.map((t) => (
-              <span
-                key={t.label}
-                className="flex items-center gap-1.5 border border-navy/15 text-navy/70 text-xs font-medium px-3 py-1.5 rounded-full"
-              >
-                <span>{t.icon}</span>
-                {t.label}
-              </span>
-            ))}
-          </div>
+            <a
+              href={url}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-primary inline-block text-sm"
+            >
+              Open the check-in form
+            </a>
           </div>
         </div>
       </div>
