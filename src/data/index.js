@@ -60,8 +60,14 @@ export const events = [
 ]
 
 // The soonest event that has not happened yet, or null once everything is past.
+// The cutoff is built from local date parts rather than toISOString(), which
+// reports UTC: in CDT that would retire an event at 7pm the evening before.
 export function nextEvent(today = new Date()) {
-  const cutoff = today.toISOString().slice(0, 10)
+  const cutoff = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, '0'),
+    String(today.getDate()).padStart(2, '0'),
+  ].join('-')
   return events.filter((e) => e.date >= cutoff).sort((a, b) => a.date.localeCompare(b.date))[0] || null
 }
 
@@ -159,4 +165,6 @@ export const boardMembers = [
 ]
 
 export const IDEA_FORM_URL = 'https://forms.gle/cghoYtUTaJJN1pKb7'
+export const GROUPME_URL = 'https://groupme.com/join_group/102541539/acwOZRZt'
+export const INSTAGRAM_URL = 'https://www.instagram.com/gi.utrgv'
 export const CONTACT_EMAIL = 'gi.utrgv@gmail.com'
