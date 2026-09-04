@@ -3,6 +3,7 @@ import Hero from './components/Hero'
 import About from './components/About'
 import Events from './components/Events'
 import Attendance from './components/Attendance'
+import News from './components/News'
 import Speakers from './components/Speakers'
 import Leadership from './components/Leadership'
 import IdeaCard from './components/IdeaCard'
@@ -18,6 +19,7 @@ export default function App() {
       <About />
       <Events />
       <Attendance />
+      <News />
       <Speakers />
       <Leadership />
       <IdeaCard />

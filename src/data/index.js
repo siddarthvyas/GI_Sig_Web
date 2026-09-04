@@ -164,6 +164,32 @@ export const boardMembers = [
   },
 ]
 
+// ---------------------------------------------------------------------------
+// News
+//
+// GI news worth putting in front of students, newest first. Keep it to items
+// with a real Valley or UTRGV connection: a national headline they could find
+// anywhere is not why they came to this site. Leave the array empty and the
+// section disappears.
+// ---------------------------------------------------------------------------
+export const news = [
+  {
+    id: 'poem-first-in-valley-2026-08',
+    date: '2026-08-12',
+    dateLong: 'August 12, 2026',
+    source: 'UTRGV Newsroom',
+    tag: 'UT Health RGV',
+    title: "UT Health RGV performs the Valley's first POEM procedure",
+    summary:
+      'Dr. Juliana Yang performed the region\'s first peroral endoscopic myotomy, a minimally ' +
+      'invasive treatment for achalasia and gastroparesis, in partnership with Rio Grande ' +
+      'Regional Hospital. Patients who needed the procedure previously traveled to Houston, ' +
+      'San Antonio, or Dallas.',
+    note: 'Dr. Yang has spoken to our group before.',
+    url: 'https://www.utrgv.edu/newsroom/2026/08/12/ut-health-rgv-performs-first-poem-procedure.htm',
+  },
+]
+
 export const IDEA_FORM_URL = 'https://forms.gle/cghoYtUTaJJN1pKb7'
 export const GROUPME_URL = 'https://groupme.com/join_group/102541539/acwOZRZt'
 export const INSTAGRAM_URL = 'https://www.instagram.com/gi.utrgv'

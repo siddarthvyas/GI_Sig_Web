@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 const speakers = [
   {
-    name: 'Juliana Yang, MD, FASGE',
+    name: 'Juliana Yang, MD, FASGE, AGAF',
     title: 'Gastroenterologist',
     affiliation: 'UT Health RGV',
     initials: 'JY',
