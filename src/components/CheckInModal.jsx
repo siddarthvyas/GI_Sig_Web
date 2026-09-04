@@ -51,7 +51,7 @@ export default function CheckInModal({ event, onClose }) {
         <div className="p-4 border-2 border-navy/10 rounded-xl">
           <QRCodeSVG
             value={url}
-            size={180}
+            size={220}
             fgColor="#0F2D4A"
             bgColor="#ffffff"
             level="M"

@@ -1,8 +1,14 @@
+import { useState } from 'react'
 import { nextEvent, CONTACT_EMAIL } from '../data'
+import AddToCalendar from './AddToCalendar'
+import Flyer from './Flyer'
+import FlyerModal from './FlyerModal'
 
 const upcoming = nextEvent()
 
 export default function Hero() {
+  const [showFlyer, setShowFlyer] = useState(false)
+
   return (
     <section id="about" className="bg-navy text-white">
       <div className="max-w-6xl mx-auto px-6 py-20 grid md:grid-cols-2 gap-12 items-center">
@@ -35,18 +41,45 @@ export default function Hero() {
 
         {/* Right — info cards */}
         <div className="flex flex-col gap-4">
-          <InfoCard
-            icon={
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            }
-            label="NEXT EVENT"
-            title={upcoming ? `${upcoming.title} · ${upcoming.month} ${upcoming.day}` : 'Stay tuned — coming soon'}
-            sub={upcoming ? `${upcoming.time} · ${upcoming.location.split(',')[0]}` : 'Check back for our semester lineup'}
-            href={upcoming ? '#events' : undefined}
-          />
+          {upcoming ? (
+            <div className="bg-navy-light/60 border border-white/10 rounded-xl px-5 py-4 flex flex-col gap-4">
+              <div className="flex items-start gap-4">
+                <div className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0 text-brand">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <div className="min-w-0">
+                  <div className="text-white/40 text-xs font-semibold tracking-widest uppercase mb-0.5">
+                    NEXT EVENT
+                  </div>
+                  <a href="#events" className="text-white font-semibold text-sm hover:text-brand transition-colors">
+                    {upcoming.title} · {upcoming.month} {upcoming.day}
+                  </a>
+                  <div className="text-white/50 text-xs mt-0.5">
+                    {upcoming.time} · {upcoming.location.split(',')[0]}
+                  </div>
+                </div>
+                <div className="w-16 flex-shrink-0 ml-auto">
+                  <Flyer event={upcoming} onClick={() => setShowFlyer(true)} />
+                </div>
+              </div>
+              <AddToCalendar event={upcoming} variant="dark" />
+            </div>
+          ) : (
+            <InfoCard
+              icon={
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              }
+              label="NEXT EVENT"
+              title="Stay tuned — coming soon"
+              sub="Check back for our semester lineup"
+            />
+          )}
           <InfoCard
             icon={
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -72,6 +105,10 @@ export default function Hero() {
           />
         </div>
       </div>
+
+      {showFlyer && upcoming && (
+        <FlyerModal event={upcoming} onClose={() => setShowFlyer(false)} />
+      )}
 
       {/* Scroll cue */}
       <div className="flex justify-center pb-8">

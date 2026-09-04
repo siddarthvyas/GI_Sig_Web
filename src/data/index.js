@@ -46,6 +46,12 @@ export const events = [
     detailIcon: 'note',
     color: 'orange',
     coHosts: ['im', 'gi', 'ho', 'cv'],
+    // Pre-filled check-in link: the "Which event are you checking in for?"
+    // answer is baked into the URL, so scanning the QR tags the response
+    // with this event and nobody has to pick it from a list.
+    checkInUrl:
+      'https://docs.google.com/forms/d/e/1FAIpQLSdU-AaCRxKJkV110LR2cI1cPcDmsaVGv_8HeTFeEFYzYw6cNg/viewform?usp=pp_url&entry.76917494=Oct+14+%E2%80%94+1st+Joint+General+Meeting',
+    flyer: '/photos/flyer-2026-10-14.png',
     blurb:
       'Kicking off a new year of collaboration. Meet the boards of all four groups, hear what each has planned for the year, and explore your future specialty over lunch.',
     startUTC: '20261014T170000Z',
@@ -54,14 +60,53 @@ export const events = [
 ]
 
 // The soonest event that has not happened yet, or null once everything is past.
+// The cutoff is built from local date parts rather than toISOString(), which
+// reports UTC: in CDT that would retire an event at 7pm the evening before.
 export function nextEvent(today = new Date()) {
-  const cutoff = today.toISOString().slice(0, 10)
+  const cutoff = [
+    today.getFullYear(),
+    String(today.getMonth() + 1).padStart(2, '0'),
+    String(today.getDate()).padStart(2, '0'),
+  ].join('-')
   return events.filter((e) => e.date >= cutoff).sort((a, b) => a.date.localeCompare(b.date))[0] || null
 }
 
 // Per-event check-in link, falling back to the shared form.
 export function checkInUrlFor(event) {
   return event?.checkInUrl || CHECK_IN_URL
+}
+
+// RFC 5545 escaping: commas, semicolons and backslashes are field separators.
+function icsEscape(text) {
+  return String(text).replace(/([\\,;])/g, '\\$1').replace(/\n/g, '\\n')
+}
+
+// A .ics file covers Apple Calendar and Outlook, which cannot open a Google
+// Calendar template link. Built from the same fields as calendarUrlFor.
+export function icsFor(event) {
+  const stamp = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z'
+  return [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//GI SIG UTRGV//Events//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    `UID:${event.id}@giutrgv.org`,
+    `DTSTAMP:${stamp}`,
+    `DTSTART:${event.startUTC}`,
+    `DTEND:${event.endUTC}`,
+    `SUMMARY:${icsEscape(`${event.title} — GI SIG`)}`,
+    `LOCATION:${icsEscape(`${event.location}, UTRGV School of Medicine`)}`,
+    `DESCRIPTION:${icsEscape(event.blurb || '')}`,
+    'BEGIN:VALARM',
+    'TRIGGER:-PT30M',
+    'ACTION:DISPLAY',
+    `DESCRIPTION:${icsEscape(event.title)}`,
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ].join('\r\n')
 }
 
 // Google Calendar "add event" link built from the event's own fields.
@@ -120,4 +165,6 @@ export const boardMembers = [
 ]
 
 export const IDEA_FORM_URL = 'https://forms.gle/cghoYtUTaJJN1pKb7'
+export const GROUPME_URL = 'https://groupme.com/join_group/102541539/acwOZRZt'
+export const INSTAGRAM_URL = 'https://www.instagram.com/gi.utrgv'
 export const CONTACT_EMAIL = 'gi.utrgv@gmail.com'
