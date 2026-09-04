@@ -2,6 +2,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Events from './components/Events'
+import Attendance from './components/Attendance'
 import Speakers from './components/Speakers'
 import Leadership from './components/Leadership'
 import IdeaCard from './components/IdeaCard'
@@ -15,6 +16,7 @@ export default function App() {
       <Hero />
       <About />
       <Events />
+      <Attendance />
       <Speakers />
       <Leadership />
       <IdeaCard />

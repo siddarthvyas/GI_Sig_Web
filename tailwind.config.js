@@ -9,6 +9,10 @@ export default {
         cream: '#F4F1EA',
         brand: '#E07A2F',
         'brand-dark': '#c96820',
+        // Co-hosting SIG accents, matched to the joint-meeting flyer
+        'sig-gi': '#2A9D8F',
+        'sig-ho': '#E76F51',
+        'sig-cv': '#E9C46A',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

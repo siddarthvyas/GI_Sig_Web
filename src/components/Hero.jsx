@@ -1,6 +1,6 @@
-import { events, CONTACT_EMAIL } from '../data'
+import { nextEvent, CONTACT_EMAIL } from '../data'
 
-const nextEvent = events[0]
+const upcoming = nextEvent()
 
 export default function Hero() {
   return (
@@ -43,8 +43,9 @@ export default function Hero() {
               </svg>
             }
             label="NEXT EVENT"
-            title={nextEvent ? `${nextEvent.title} · ${nextEvent.month} ${nextEvent.day}` : 'Stay tuned — coming soon'}
-            sub={nextEvent ? `${nextEvent.time} · ${nextEvent.location.split(',')[0]}` : 'Check back for our semester lineup'}
+            title={upcoming ? `${upcoming.title} · ${upcoming.month} ${upcoming.day}` : 'Stay tuned — coming soon'}
+            sub={upcoming ? `${upcoming.time} · ${upcoming.location.split(',')[0]}` : 'Check back for our semester lineup'}
+            href={upcoming ? '#events' : undefined}
           />
           <InfoCard
             icon={

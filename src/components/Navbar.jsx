@@ -4,6 +4,7 @@ import { IDEA_FORM_URL } from '../data'
 const navLinks = [
   { label: 'About', href: '#about-detail' },
   { label: 'Events', href: '#events' },
+  { label: 'Check In', href: '#attendance' },
   { label: 'Board', href: '#board' },
 ]
 
