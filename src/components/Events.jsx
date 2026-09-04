@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { events, CHECK_IN_URL } from '../data'
+import { events, sigs, calendarUrlFor } from '../data'
 import CheckInModal from './CheckInModal'
+import SigChips from './SigChips'
 
 const ClockIcon = () => (
   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -17,6 +18,13 @@ const QrIcon = () => (
   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
       d="M3 3h6v6H3zM15 3h6v6h-6zM3 15h6v6H3zM15 18h.01M18 15h.01M21 18h.01M18 21h.01M21 21h.01M15 21h.01M19 15h.01" />
+  </svg>
+)
+
+const CalendarIcon = () => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5}
+      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
   </svg>
 )
 
@@ -41,7 +49,7 @@ const detailIcons = {
   ),
 }
 
-function EventCard({ event, onCheckIn }) {
+function EventCard({ event, onCheckIn, featured = false }) {
   const isOrange = event.color === 'orange'
   const headerBg = isOrange ? 'bg-brand' : 'bg-navy'
 
@@ -52,6 +60,11 @@ function EventCard({ event, onCheckIn }) {
           <div className="flex flex-col items-center leading-none">
             <span className="text-xs font-semibold opacity-70 tracking-wider">{event.month}</span>
             <span className="text-3xl font-extrabold">{event.day}</span>
+            {event.weekday && (
+              <span className="text-[10px] font-semibold opacity-60 tracking-wider mt-1">
+                {event.weekday.slice(0, 3).toUpperCase()}
+              </span>
+            )}
           </div>
           <div>
             <div className="font-bold text-lg leading-tight">{event.title}</div>
@@ -60,13 +73,29 @@ function EventCard({ event, onCheckIn }) {
         </div>
       </div>
 
-      <div className="px-5 py-4 flex flex-col gap-2.5 flex-1">
+      {event.coHosts?.length > 0 && (
+        <div className="px-5 pt-4 flex flex-col gap-2">
+          <div className="text-navy/40 text-[10px] font-semibold tracking-widest uppercase">
+            Co-hosted by
+          </div>
+          <SigChips keys={event.coHosts} size="sm" />
+          <p className="text-navy/45 text-xs leading-relaxed">
+            {event.coHosts.map((k) => sigs[k]?.name).filter(Boolean).join(' · ')}
+          </p>
+        </div>
+      )}
+
+      <div className={featured ? 'md:flex md:items-stretch md:gap-6 md:px-2' : ''}>
+      <div className={`px-5 py-4 flex flex-col gap-2.5 flex-1 ${featured ? 'md:w-1/2' : ''}`}>
         <DetailRow icon={<ClockIcon />} text={event.time} />
         <DetailRow icon={<PinIcon />} text={event.location} />
         {event.detail && <DetailRow icon={detailIcons[event.detailIcon]} text={event.detail} />}
+        {event.blurb && (
+          <p className="text-navy/55 text-sm leading-relaxed mt-1">{event.blurb}</p>
+        )}
       </div>
 
-      <div className="px-5 pb-5">
+      <div className={`px-5 pb-5 flex flex-col gap-2 ${featured ? 'md:w-1/2 md:justify-end md:pb-6' : ''}`}>
         <button
           onClick={() => onCheckIn(event)}
           className="w-full flex items-center justify-center gap-2 border border-navy/20 hover:border-navy/40 text-navy font-semibold text-sm py-2.5 rounded-lg transition-colors"
@@ -74,6 +103,18 @@ function EventCard({ event, onCheckIn }) {
           <QrIcon />
           Check In
         </button>
+        {event.startUTC && event.endUTC && (
+          <a
+            href={calendarUrlFor(event)}
+            target="_blank"
+            rel="noreferrer"
+            className="w-full flex items-center justify-center gap-2 text-navy/60 hover:text-brand font-semibold text-sm py-1.5 rounded-lg transition-colors"
+          >
+            <CalendarIcon />
+            Add to calendar
+          </a>
+        )}
+      </div>
       </div>
     </div>
   )
@@ -119,10 +160,21 @@ export default function Events() {
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div
+          className={
+            events.length === 1
+              ? 'grid grid-cols-1 max-w-3xl'
+              : 'grid sm:grid-cols-2 lg:grid-cols-3 gap-6'
+          }
+        >
           {events.length > 0 ? (
             events.map((ev) => (
-              <EventCard key={ev.id} event={ev} onCheckIn={setActiveEvent} />
+              <EventCard
+                key={ev.id}
+                event={ev}
+                onCheckIn={setActiveEvent}
+                featured={events.length === 1}
+              />
             ))
           ) : (
             <ComingSoonCard />
