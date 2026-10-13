@@ -96,6 +96,13 @@ export function nextEvent(today = new Date(), { confirmed = false } = {}) {
     .sort((a, b) => a.date.localeCompare(b.date))[0] || null
 }
 
+// Every event that has not happened yet, soonest first (same cutoff rule).
+export function upcomingEvents(today = new Date()) {
+  const next = nextEvent(today)
+  if (!next) return []
+  return events.filter((e) => e.date >= next.date).sort((a, b) => a.date.localeCompare(b.date))
+}
+
 // Per-event check-in link, falling back to the shared form.
 export function checkInUrlFor(event) {
   return event?.checkInUrl || CHECK_IN_URL

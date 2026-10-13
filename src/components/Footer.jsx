@@ -1,4 +1,5 @@
-import { CONTACT_EMAIL, GROUPME_URL, INSTAGRAM_URL } from '../data'
+import { QRCodeSVG } from 'qrcode.react'
+import { CONTACT_EMAIL, GROUPME_URL, IDEA_FORM_URL, INSTAGRAM_URL } from '../data'
 
 const InstagramIcon = () => (
   <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -13,39 +14,120 @@ const ChatIcon = () => (
   </svg>
 )
 
-export default function Footer() {
+const MailIcon = () => (
+  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
+      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+  </svg>
+)
+
+const explore = [
+  { label: 'About', href: '#about-detail' },
+  { label: 'Events', href: '#events' },
+  { label: 'Check in', href: '#attendance' },
+  { label: 'News', href: '#news' },
+  { label: 'Board', href: '#board' },
+]
+
+function ColumnTitle({ children }) {
   return (
-    <footer className="bg-navy border-t border-white/10">
-      <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <img src="/photos/logo.png" alt="GI SIG" className="w-7 h-7 object-contain" />
-          <span className="text-white/50 text-sm">GI SIG</span>
+    <div className="text-white/40 text-[11px] font-semibold tracking-widest uppercase mb-4">{children}</div>
+  )
+}
+
+const linkClass = 'text-white/70 hover:text-brand transition-colors text-sm'
+
+export default function Footer() {
+  const year = new Date().getFullYear()
+
+  return (
+    <footer className="bg-navy text-white border-t border-white/10">
+      {/* Thin brand rule ties the footer to the orange accents above. */}
+      <div className="h-1 bg-gradient-to-r from-brand via-brand/60 to-transparent" />
+
+      <div className="max-w-6xl mx-auto px-6 pt-14 pb-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-12">
+        {/* Identity */}
+        <div className="lg:col-span-4">
+          <div className="flex items-center gap-3 mb-4">
+            <img src="/photos/logo.png" alt="GI SIG" className="w-14 h-14 object-contain" />
+            <div>
+              <div className="font-extrabold text-lg leading-tight">GI SIG</div>
+              <div className="text-white/50 text-xs">UTRGV School of Medicine</div>
+            </div>
+          </div>
+          <p className="text-white/55 text-sm leading-relaxed max-w-xs">
+            Gastroenterology Student Interest Group. Speakers, procedures, research, and mentorship
+            for students curious about GI in the Rio Grande Valley.
+          </p>
         </div>
-        <div className="flex items-center gap-5">
-          <a
-            href={GROUPME_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="text-white/50 hover:text-brand transition-colors flex items-center gap-1.5 text-sm"
-          >
-            <ChatIcon />
-            GroupMe
-          </a>
-          <a
-            href={INSTAGRAM_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="text-white/50 hover:text-brand transition-colors flex items-center gap-1.5 text-sm"
-          >
-            <InstagramIcon />
-            @gi.utrgv
-          </a>
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            className="text-brand hover:text-brand-dark text-sm font-medium transition-colors"
-          >
-            {CONTACT_EMAIL}
-          </a>
+
+        {/* Explore */}
+        <div className="lg:col-span-2">
+          <ColumnTitle>Explore</ColumnTitle>
+          <ul className="flex flex-col gap-2.5">
+            {explore.map((l) => (
+              <li key={l.label}>
+                <a href={l.href} className={linkClass}>{l.label}</a>
+              </li>
+            ))}
+            <li>
+              <a href={IDEA_FORM_URL} target="_blank" rel="noreferrer" className={linkClass}>
+                Submit an idea
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Contact */}
+        <div className="lg:col-span-3">
+          <ColumnTitle>Contact</ColumnTitle>
+          <ul className="flex flex-col gap-3">
+            <li>
+              <a href={`mailto:${CONTACT_EMAIL}`} className={`${linkClass} flex items-center gap-2`}>
+                <MailIcon />
+                {CONTACT_EMAIL}
+              </a>
+            </li>
+            <li>
+              <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" className={`${linkClass} flex items-center gap-2`}>
+                <InstagramIcon />
+                @gi.utrgv
+              </a>
+            </li>
+            <li>
+              <a href={GROUPME_URL} target="_blank" rel="noreferrer" className={`${linkClass} flex items-center gap-2`}>
+                <ChatIcon />
+                GroupMe chat
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {/* Join */}
+        <div className="lg:col-span-3">
+          <ColumnTitle>Join the GroupMe</ColumnTitle>
+          <div className="flex items-center gap-4">
+            <a href={GROUPME_URL} target="_blank" rel="noreferrer" className="bg-white p-2 rounded-xl flex-shrink-0" aria-label="Join our GroupMe">
+              <QRCodeSVG
+                value={GROUPME_URL}
+                size={96}
+                fgColor="#0F2D4A"
+                bgColor="#ffffff"
+                level="H"
+                imageSettings={{ src: '/photos/logo.png', height: 24, width: 24, excavate: true }}
+              />
+            </a>
+            <p className="text-white/55 text-xs leading-relaxed">
+              Scan with your phone camera, or tap the code. Event reminders and room changes go here first.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="border-t border-white/10">
+        <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-white/40 text-xs">
+          <span>© {year} GI SIG · UTRGV School of Medicine</span>
+          <a href="#" className="hover:text-brand transition-colors">Back to top ↑</a>
         </div>
       </div>
     </footer>
