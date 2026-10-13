@@ -3,7 +3,7 @@ import { nextEvent, checkInUrlFor } from '../data'
 import SigChips from './SigChips'
 
 export default function Attendance() {
-  const event = nextEvent()
+  const event = nextEvent(new Date(), { confirmed: true })
   const url = checkInUrlFor(event)
 
   return (

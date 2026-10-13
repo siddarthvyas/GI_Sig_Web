@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { nextEvent, CONTACT_EMAIL } from '../data'
+import { upcomingEvents, CONTACT_EMAIL } from '../data'
 import AddToCalendar from './AddToCalendar'
 import Flyer from './Flyer'
 import FlyerModal from './FlyerModal'
 
-const upcoming = nextEvent()
+const [upcoming, ...later] = upcomingEvents()
 
 export default function Hero() {
   const [showFlyer, setShowFlyer] = useState(false)
@@ -66,6 +66,30 @@ export default function Hero() {
                 </div>
               </div>
               <AddToCalendar event={upcoming} variant="dark" />
+
+              {later.length > 0 && (
+                <div className="border-t border-white/10 pt-3 flex flex-col gap-2.5">
+                  <div className="text-white/40 text-xs font-semibold tracking-widest uppercase">
+                    Also coming up
+                  </div>
+                  {later.map((ev) => (
+                    <a key={ev.id} href="#events" className="flex items-center gap-3 group">
+                      <div className="w-9 flex-shrink-0 flex flex-col items-center leading-none text-white/70">
+                        <span className="text-[9px] font-semibold tracking-wider opacity-70">{ev.month}</span>
+                        <span className="text-base font-extrabold">{ev.day}</span>
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-white text-sm font-semibold group-hover:text-brand transition-colors">
+                          {ev.title}
+                        </div>
+                        <div className="text-white/50 text-xs mt-0.5">
+                          {ev.tentative ? 'Time and room TBD · details to come' : `${ev.time} · ${ev.location}`}
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           ) : (
             <InfoCard

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { QRCodeSVG } from 'qrcode.react'
 import { GROUPME_URL } from '../data'
 
 const FORM_RESPONSE_URL =
@@ -35,18 +36,37 @@ export default function EmailSignup() {
           <p className="text-white/55 text-sm max-w-sm mb-4">
             Get notified when we schedule new events, speakers, and opportunities.
           </p>
-          <a
-            href={GROUPME_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-2 border border-white/25 hover:border-white/50 text-white font-semibold text-sm px-4 py-2 rounded-lg transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
-                d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.9 9.9 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-            </svg>
-            Join our GroupMe
-          </a>
+          <div className="flex items-center gap-5">
+            <a
+              href={GROUPME_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 border border-white/25 hover:border-white/50 text-white font-semibold text-sm px-4 py-2 rounded-lg transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8}
+                  d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.9 9.9 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+              Join our GroupMe
+            </a>
+            {/* Scan-to-join for laptops and projected slides; on a phone the
+                button above is the faster path, so the code hides there. */}
+            <div className="hidden sm:flex flex-col items-center gap-1.5">
+              <div className="bg-white p-2 rounded-xl">
+                <QRCodeSVG
+                  value={GROUPME_URL}
+                  size={112}
+                  fgColor="#0F2D4A"
+                  bgColor="#ffffff"
+                  level="H"
+                  imageSettings={{ src: '/photos/logo.png', height: 28, width: 28, excavate: true }}
+                />
+              </div>
+              <span className="text-white/45 text-[10px] font-semibold tracking-widest uppercase">
+                Scan to join
+              </span>
+            </div>
+          </div>
         </div>
 
         {status === 'success' ? (

@@ -57,18 +57,50 @@ export const events = [
     startUTC: '20261014T170000Z',
     endUTC: '20261014T180000Z',
   },
+  {
+    id: 'dr-yang-speaker-2026-11-12',
+    date: '2026-11-12',
+    month: 'NOV',
+    day: '12',
+    weekday: 'Thursday',
+    dateLong: 'November 12, 2026',
+    title: 'Speaker Event with Dr. Juliana Yang',
+    category: 'GUEST SPEAKER',
+    time: 'Time TBD · 12:00 PM or 5:00/5:30 PM',
+    location: 'Location TBD',
+    detail: 'In person · More details to come',
+    detailIcon: 'speaker',
+    color: 'navy',
+    // Time not set yet: no calendar link and no check-in until it is. When
+    // it is confirmed, fill in time/location/startUTC/endUTC (CST = UTC-6
+    // after Nov 1, so noon is 18:00Z) and delete `tentative`.
+    tentative: true,
+    blurb:
+      'Dr. Juliana Yang, UT Health RGV gastroenterologist who performed the Valley\'s first ' +
+      'POEM procedure, is coming to speak with us in person. Time and room coming soon.',
+  },
 ]
 
 // The soonest event that has not happened yet, or null once everything is past.
 // The cutoff is built from local date parts rather than toISOString(), which
 // reports UTC: in CDT that would retire an event at 7pm the evening before.
-export function nextEvent(today = new Date()) {
+// Pass { confirmed: true } to skip events whose time is still TBD (check-in).
+export function nextEvent(today = new Date(), { confirmed = false } = {}) {
   const cutoff = [
     today.getFullYear(),
     String(today.getMonth() + 1).padStart(2, '0'),
     String(today.getDate()).padStart(2, '0'),
   ].join('-')
-  return events.filter((e) => e.date >= cutoff).sort((a, b) => a.date.localeCompare(b.date))[0] || null
+  return events
+    .filter((e) => e.date >= cutoff && !(confirmed && e.tentative))
+    .sort((a, b) => a.date.localeCompare(b.date))[0] || null
+}
+
+// Every event that has not happened yet, soonest first (same cutoff rule).
+export function upcomingEvents(today = new Date()) {
+  const next = nextEvent(today)
+  if (!next) return []
+  return events.filter((e) => e.date >= next.date).sort((a, b) => a.date.localeCompare(b.date))
 }
 
 // Per-event check-in link, falling back to the shared form.
@@ -191,6 +223,6 @@ export const news = [
 ]
 
 export const IDEA_FORM_URL = 'https://forms.gle/cghoYtUTaJJN1pKb7'
-export const GROUPME_URL = 'https://groupme.com/join_group/102541539/acwOZRZt'
+export const GROUPME_URL = 'https://groupme.com/join_group/117822019/KIiRrbQs'
 export const INSTAGRAM_URL = 'https://www.instagram.com/gi.utrgv'
 export const CONTACT_EMAIL = 'gi.utrgv@gmail.com'
