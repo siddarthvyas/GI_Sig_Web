@@ -65,6 +65,11 @@ function EventCard({ event, onCheckIn, onViewFlyer, featured = false }) {
           <div>
             <div className="font-bold text-lg leading-tight">{event.title}</div>
             <div className="text-xs opacity-60 font-semibold tracking-wider mt-0.5">{event.category}</div>
+            {event.tentative && (
+              <span className="inline-block mt-2 text-[10px] font-bold tracking-widest uppercase bg-white/15 rounded px-2 py-0.5">
+                Details to come
+              </span>
+            )}
           </div>
         </div>
       </div>
@@ -93,13 +98,15 @@ function EventCard({ event, onCheckIn, onViewFlyer, featured = false }) {
           )}
 
           <div className={`flex flex-col gap-3 mt-auto pt-4 ${featured ? '' : 'hidden'}`}>
-            <button
-              onClick={() => onCheckIn(event)}
-              className="w-full flex items-center justify-center gap-2 border border-navy/20 hover:border-navy/40 text-navy font-semibold text-sm py-2.5 rounded-lg transition-colors"
-            >
-              <QrIcon />
-              Check In
-            </button>
+            {!event.tentative && (
+              <button
+                onClick={() => onCheckIn(event)}
+                className="w-full flex items-center justify-center gap-2 border border-navy/20 hover:border-navy/40 text-navy font-semibold text-sm py-2.5 rounded-lg transition-colors"
+              >
+                <QrIcon />
+                Check In
+              </button>
+            )}
             <AddToCalendar event={event} />
           </div>
         </div>
@@ -110,15 +117,17 @@ function EventCard({ event, onCheckIn, onViewFlyer, featured = false }) {
           </div>
         )}
 
-        {!featured && (
+        {!featured && !event.tentative && (
           <div className="px-5 pb-5 flex flex-col gap-3">
-            <button
-              onClick={() => onCheckIn(event)}
-              className="w-full flex items-center justify-center gap-2 border border-navy/20 hover:border-navy/40 text-navy font-semibold text-sm py-2.5 rounded-lg transition-colors"
-            >
-              <QrIcon />
-              Check In
-            </button>
+            {!event.tentative && (
+              <button
+                onClick={() => onCheckIn(event)}
+                className="w-full flex items-center justify-center gap-2 border border-navy/20 hover:border-navy/40 text-navy font-semibold text-sm py-2.5 rounded-lg transition-colors"
+              >
+                <QrIcon />
+                Check In
+              </button>
+            )}
             <AddToCalendar event={event} />
           </div>
         )}
@@ -172,7 +181,9 @@ export default function Events() {
           className={
             events.length === 1
               ? 'grid grid-cols-1 max-w-3xl'
-              : 'grid sm:grid-cols-2 lg:grid-cols-3 gap-6'
+              : events.length === 2
+                ? 'grid sm:grid-cols-2 gap-6 max-w-4xl'
+                : 'grid sm:grid-cols-2 lg:grid-cols-3 gap-6'
           }
         >
           {events.length > 0 ? (
