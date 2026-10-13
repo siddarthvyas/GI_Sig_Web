@@ -194,6 +194,14 @@ export const boardMembers = [
     color: 'navy',
     photo: '/photos/Angel.jpg',
   },
+  {
+    initials: 'SG',
+    name: 'Sergio Gonzales',
+    role: 'COMMUNITY OUTREACH COORDINATOR',
+    year: 'MS2 · Class of 2028',
+    color: 'orange',
+    photo: '/photos/Sergio.jpg',
+  },
 ]
 
 // ---------------------------------------------------------------------------
