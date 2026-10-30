@@ -214,6 +214,23 @@ export const boardMembers = [
 // ---------------------------------------------------------------------------
 export const news = [
   {
+    id: 'epic-cosmos-datathon-2026-10',
+    date: '2026-10-29',
+    dateLong: 'October 29, 2026',
+    source: 'UTRGV School of Medicine',
+    tag: 'Research',
+    title: 'UTRGV-Knapp resident\'s team wins first place at the 2026 Epic Cosmos Datathon',
+    summary:
+      'Dr. Ridwan Lawal, a third-year UTRGV-Knapp Internal Medicine resident, was part of the ' +
+      'team that took first place in Houston for research comparing nutritional deficiencies ' +
+      'after GLP-1 medication initiation and after bariatric surgery. In the Epic Cosmos ' +
+      'database, deficiencies were more common after bariatric surgery (64.4%) than after ' +
+      'starting a GLP-1 medication (43.3%), a case for nutritional monitoring in patients on ' +
+      'GLP-1 drugs. Dr. Paul Potnuru of UTHealth Houston contributed Epic Cosmos expertise.',
+    note: 'Mentored by Dr. Juliana Yang, our November 12 speaker.',
+    url: null,
+  },
+  {
     id: 'poem-first-in-valley-2026-08',
     date: '2026-08-12',
     dateLong: 'August 12, 2026',
