@@ -29,6 +29,7 @@ function NewsCard({ item }) {
         <p className="text-brand text-sm font-semibold">{item.note}</p>
       )}
 
+      {item.url && (
       <a
         href={item.url}
         target="_blank"
@@ -38,6 +39,7 @@ function NewsCard({ item }) {
         Read the article
         <ExternalIcon />
       </a>
+      )}
     </article>
   )
 }
